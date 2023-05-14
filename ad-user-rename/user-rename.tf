@@ -1,5 +1,5 @@
 #######################################
-## KopiCloud AD API - Create AD User ##
+## KopiCloud AD API - Rename AD User ##
 #######################################
 
 # User Name
@@ -10,7 +10,7 @@ resource "random_string" "random" {
 }
 
 // Create Basic User
-resource "kopicloud_user" "test_1" {
+resource "kopicloud_user" "test" {
   username     = "labtestuser-${random_string.random.result}"
   password     = "P@ssword"
   first_name   = "Lab Test"
@@ -23,7 +23,22 @@ resource "kopicloud_user" "test_1" {
   password_never_expires     = true
 }
 
-output "OUTPUT_new_user_1" {
-  description = "Created User 1"
-  value       = resource.kopicloud_user.test_1
+// Rename AD User
+resource "kopicloud_user_rename_account" "test" {
+  depends_on = [ kopicloud_user.test ]
+
+  username     = "labtestuser-${random_string.random.result}"
+  new_username = "labtestuser-${random_string.random.result}R"
+}
+
+// AD New User Result
+output "OUTPUT_new_user" {
+  description = "Created User"
+  value       = resource.kopicloud_user.test
+}
+
+// AD User Rename Result
+output "OUTPUT_user_rename" {
+  description = "Rename AD User"
+  value = resource.kopicloud_user_rename_account.test
 }

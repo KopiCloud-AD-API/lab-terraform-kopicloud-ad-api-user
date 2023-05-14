@@ -2,14 +2,14 @@
 ## KopiCloud AD API - Create AD User ##
 #######################################
 
-// User Name
+# User Name
 resource "random_string" "random" {
   length  = 3
   special = false
   upper   = false
 }
 
-// Create User wwith Address and Phone
+// Create Basic User
 resource "kopicloud_user" "test_1" {
   username     = "labtestuser-${random_string.random.result}"
   password     = "P@ssword"
@@ -31,7 +31,6 @@ resource "kopicloud_user" "test_1" {
   home_phone   = "+351 711 212 786"
 }
 
-// New Created User
 output "OUTPUT_new_user_1" {
   description = "Created User 1"
   value       = resource.kopicloud_user.test_1

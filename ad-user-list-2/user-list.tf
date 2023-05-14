@@ -2,6 +2,7 @@
 ## KopiCloud AD API - List AD Users ##
 ######################################
 
+
 # OU Name
 resource "random_string" "random1" {
   length  = 4

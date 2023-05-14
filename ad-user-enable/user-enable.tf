@@ -1,14 +1,10 @@
-#######################################
-## KopiCloud AD API - Enable AD User ##
-#######################################
-
-// Enable AD User Account
+# Enable AD User Account
 resource "kopicloud_user_enable_account" "test" {
   username = "guillermo"
 }
 
-// Enabled AD User Account Account
+# Enabled AD User Account Result
 output "user_enable_account" {
-  description = "User Enabled"
+  description = "AD User Enabled"
   value = resource.kopicloud_user_enable_account.test
 }

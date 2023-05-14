@@ -2,14 +2,14 @@
 ## KopiCloud AD API - Create AD User ##
 #######################################
 
-// User Name #1
+# User Name
 resource "random_string" "random1" {
   length  = 3
   special = false
   upper   = false
 }
 
-// Create User #1 with home_folder_path
+// Create User
 resource "kopicloud_user" "test_1" {
   username     = "labtestuser-${random_string.random1.result}"
   password     = "P@ssword"
@@ -22,7 +22,6 @@ resource "kopicloud_user" "test_1" {
   home_folder_path = "\\\\server\\home"
 }
 
-// New Created User #1
 output "OUTPUT_new_user_1" {
   description = "Created User 1"
   value       = resource.kopicloud_user.test_1
@@ -30,14 +29,14 @@ output "OUTPUT_new_user_1" {
 
 /////////////////////////////////////////////////////////////////
 
-// User Name #2
+# User Name
 resource "random_string" "random2" {
   length  = 3
   special = false
   upper   = false
 }
 
-// Create User #2 with home_folder
+// Create User
 resource "kopicloud_user" "test_2" {
   username     = "labtestuser-${random_string.random2.result}"
   password     = "P@ssword"
@@ -51,7 +50,6 @@ resource "kopicloud_user" "test_2" {
   home_folder_drive = "X:"
 }
 
-// New Created User #2
 output "OUTPUT_new_user_2" {
   description = "Created User 2"
   value       = resource.kopicloud_user.test_2
@@ -59,14 +57,14 @@ output "OUTPUT_new_user_2" {
 
 /////////////////////////////////////////////////////////////////
 
-// User Name #3
+# User Name
 resource "random_string" "random3" {
   length  = 3
   special = false
   upper   = false
 }
 
-// Create User #3 - Multiple Values
+// Create User
 resource "kopicloud_user" "test_3" {
   username     = "labtestuser-${random_string.random3.result}"
   password     = "P@ssword"
@@ -81,7 +79,6 @@ resource "kopicloud_user" "test_3" {
   //home_folder_path = "\\\\server\\home"
 }
 
-// New Created User #3
 output "OUTPUT_new_user_3" {
   description = "Created User 3"
   value       = resource.kopicloud_user.test_3

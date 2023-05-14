@@ -2,14 +2,14 @@
 ## KopiCloud AD API - Create AD User ##
 #######################################
 
-# User Name #1
+// User Name #1
 resource "random_string" "random1" {
   length  = 3
   special = false
   upper   = false
 }
 
-// Create Manager User
+// Create RDS User #1
 resource "kopicloud_user" "test_1" {
   username     = "labtestuser-${random_string.random1.result}"
   password     = "P@ssword"
@@ -19,11 +19,11 @@ resource "kopicloud_user" "test_1" {
   display_name = "Lab Test X User ${random_string.random1.result}"
   description  = "Lab Test X User ${random_string.random1.result}"
 
-  company       = "KopiCloud Labs"
-  department    = "Laboratory"
-  email_address = "labtestuser-${random_string.random1.result}@kopicloud.net"
-  office        = "Level 3, Office 67"
-  job_title     = "Lab Engineer"
+  rds_allow_logon = true
+  rds_profile_path = "\\\\rdsserver\\userprofile1"
+
+  rds_connect_drive = false
+  rds_home_folder_path = "c:\\rdsserver\\homefolder1"
 }
 
 output "OUTPUT_new_user_1" {
@@ -31,7 +31,7 @@ output "OUTPUT_new_user_1" {
   value       = resource.kopicloud_user.test_1
 }
 
-////////////////////////////////////////////////////
+//////////////////////////
 
 # User Name #2
 resource "random_string" "random2" {
@@ -40,10 +40,8 @@ resource "random_string" "random2" {
   upper   = false
 }
 
-// Create Employee User
+// Create RDS User #2
 resource "kopicloud_user" "test_2" {
-  depends_on = [kopicloud_user.test_1]
-
   username     = "labtestuser-${random_string.random2.result}"
   password     = "P@ssword"
   first_name   = "Lab Test"
@@ -52,17 +50,15 @@ resource "kopicloud_user" "test_2" {
   display_name = "Lab Test X User ${random_string.random2.result}"
   description  = "Lab Test X User ${random_string.random2.result}"
 
-  company       = "KopiCloud Labs"
-  department    = "Laboratory"
-  email_address = "labtestuser-${random_string.random2.result}@kopicloud.net"
-  office        = "Level 3, Office 68"
-  job_title     = "Lab Engineer"
-  manager       = resource.kopicloud_user.test_1.username
+  rds_allow_logon = false
+  rds_profile_path = "\\\\rdsserver\\userprofile2"
+
+  rds_connect_drive = true
+  rds_home_folder_drive = "R:"
+  rds_home_folder_path = "\\\\rdsserver\\homefolder2"
 }
 
 output "OUTPUT_new_user_2" {
   description = "Created User 2"
   value       = resource.kopicloud_user.test_2
 }
-
-
